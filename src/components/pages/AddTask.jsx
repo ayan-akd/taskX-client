@@ -4,8 +4,9 @@ import { useForm, Controller } from "react-hook-form";
 import useAuth from "../shared/useAuth";
 import { Helmet } from "react-helmet";
 import CustomContainer from "../CustomContainer";
+import { axiosPublic } from "../shared/useAxios";
 const AddTask = () => {
-  const { user } = useAuth();
+  const { user, handleAlert, refetch } = useAuth();
   const hostName = user?.displayName;
   const hostEmail = user?.email;
   const {
@@ -21,21 +22,12 @@ const AddTask = () => {
       status: "todo",
     };
     console.log(newTask);
-    // axiosSecure
-    //   .post(`/camps?email=${user?.email}`, newCamp)
-    //   .then((res) => {
-    //     if (res.status == 200) {
-    //       refetch();
-
-    //       const added = toast.success("Camp Added Successfully");
-    //       setTimeout(() => {
-    //         toast.dismiss(added);
-    //       }, 2000);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     toast.error(error.message);
-    //   });
+    axiosPublic.post("/tasks", newTask).then((res) => {
+      if (res.status == 201) {
+        handleAlert("success", "Task added successfully");
+        refetch();
+      }
+    });
   };
   return (
     <div>
@@ -105,9 +97,7 @@ const AddTask = () => {
                 />
               </label>
               {errors.priority && (
-                <span className="text-error">
-                  {errors.priority.message}
-                </span>
+                <span className="text-error">{errors.priority.message}</span>
               )}
             </div>
             {/* Date and Time */}

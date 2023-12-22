@@ -6,10 +6,14 @@ import Lottie from "lottie-react";
 import { motion } from "framer-motion";
 import CustomButton from "../CustomButton";
 import lott from "../../assets/lottie.json";
+import { Helmet } from "react-helmet";
 
 const ErrorPage = () => {
   return (
     <div>
+      <Helmet>
+        <title>TaskX | Not Found</title>
+      </Helmet>
       <NavBar></NavBar>
       <motion.div />
       <CustomContainer>

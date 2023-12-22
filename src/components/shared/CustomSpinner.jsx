@@ -1,5 +1,5 @@
+/* eslint-disable react/prop-types */
 import { PulseSpinner, PushSpinner } from "react-spinners-kit";
-import PropTypes from "prop-types";
 
 const CustomSpinner = ({ small }) => {
   return (
@@ -11,10 +11,6 @@ const CustomSpinner = ({ small }) => {
       )}
     </div>
   );
-};
-
-CustomSpinner.propTypes = {
-  small: PropTypes.bool,
 };
 
 export default CustomSpinner;

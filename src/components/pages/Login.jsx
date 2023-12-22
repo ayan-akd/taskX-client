@@ -23,7 +23,7 @@ const Login = () => {
     logIn(email, password)
       .then(() => {
         navigate("/dashboard/profile");
-        handleAlert("success", "User LoggedIn Successfully");
+        handleAlert("success", "User Logged in Successfully");
         setCustomLoading(false);
       })
       .catch((error) => {
@@ -41,7 +41,7 @@ const Login = () => {
       const checkUser = await checkUserExists(result?.user?.email);
       if (checkUser) {
         navigate("/dashboard/profile");
-        handleAlert("success", "User LoggedIn Successfully");
+        handleAlert("success", "User Logged In Successfully");
       } else {
         createRoles(
           result?.user?.email,
@@ -66,7 +66,7 @@ const Login = () => {
       const checkUser = await checkUserExists(result?.user?.email);
       if (checkUser) {
         navigate("/dashboard/profile");
-        handleAlert("success", "User LoggedIn Successfully");
+        handleAlert("success", "User Logged In Successfully");
       } else {
         createRoles(
           result?.user?.email,

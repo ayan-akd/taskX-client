@@ -11,7 +11,8 @@ import {
 } from "firebase/auth";
 import auth from "./firebase-key";
 import toast from "react-hot-toast";
-import { axiosPublic } from "../shared/useAxios";
+import { axiosPublic, baseUrl } from "../shared/useAxios";
+import { useQuery } from "@tanstack/react-query";
 
 export const AuthContext = createContext(null);
 
@@ -80,7 +81,7 @@ const AuthProvider = ({ children }) => {
 
   const logOut = () => {
     setLoading(true);
-    handleAlert("warn", "User LoggedOut");
+    handleAlert("warn", "User Logged Out");
     return signOut(auth);
   };
 
@@ -97,6 +98,20 @@ const AuthProvider = ({ children }) => {
       },
     });
   };
+  const {
+    data: tasks,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["tasks"],
+    queryFn: async () => {
+      const response = await axiosPublic.get(
+        `${baseUrl}/tasks?email=${user?.email}`,
+        { withCredentials: true }
+      );
+      return response.data;
+    },
+  });
 
   const authInfo = {
     handleAlert,
@@ -110,6 +125,9 @@ const AuthProvider = ({ children }) => {
     fbLogIn,
     userData,
     roleLoading,
+    tasks,
+    isLoading,
+    refetch,
   };
 
   return (
