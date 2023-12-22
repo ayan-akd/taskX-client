@@ -4,7 +4,8 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 // export const baseUrl = "";
-export const baseUrl = "http://localhost:5000";
+// export const baseUrl = "http://localhost:5000";
+export const baseUrl = "https://task-x-server.vercel.app";
 
 export const axiosPublic = axios.create({
   baseURL: baseUrl,
