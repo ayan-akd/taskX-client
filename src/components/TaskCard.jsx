@@ -7,22 +7,14 @@ import useAuth from "./shared/useAuth";
 import UpdateModal from "./UpdateModal";
 import { useState } from "react";
 import { useDrag } from "react-dnd";
-const TaskCard = ({ task, onDrop }) => {
+const TaskCard = ({ task }) => {
   const { user, handleAlert, refetch } = useAuth();
   const [selectedRowData, setSelectedRowData] = useState(null);
-  const [{ isDragging }, drag] = useDrag({
-    type: "TASK",
-    item: { taskId: task._id, status: task.status },
-    end: (item, monitor) => {
-      console.log("item:", item);
-      console.log("dropResult:", dropResult);
-      const dropResult = monitor.getDropResult();
-      if (item && dropResult) {
-        onDrop(item.taskId, dropResult.status);
-      }
-    },
+  const [{ isDragging }, dragRef] = useDrag({
+    type: "TASK", // This should be a constant string
+    item: () => ({ id: task._id }),
     collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
+      isDragging: !!monitor.isDragging(),
     }),
   });
   const formatDate = (dateString) => {
@@ -51,7 +43,7 @@ const TaskCard = ({ task, onDrop }) => {
     setSelectedRowData(task);
   };
   return (
-    <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1, cursor: "move" }}>
+    <div ref={dragRef} style={{ opacity: isDragging ? 0.5 : 1 }}>
       <div>
         <p className="text-xl mb-2">{task?.taskName}</p>
         <p>{task?.description}</p>
