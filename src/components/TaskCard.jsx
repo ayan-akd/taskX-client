@@ -44,7 +44,7 @@ const TaskCard = ({ task }) => {
   };
   return (
     <div ref={dragRef} style={{ opacity: isDragging ? 0.5 : 1 }}>
-      <div>
+      <div className="shadow-xl bg-base-200 p-10">
         <p className="text-xl mb-2">{task?.taskName}</p>
         <p>{task?.description}</p>
         <p>Priority: {task?.priority}</p>
